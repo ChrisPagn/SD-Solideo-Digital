@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Service;
+use App\Models\Testimonial;
+use App\Observers\ServiceObserver;
+use App\Observers\TestimonialObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register observers
+        Service::observe(ServiceObserver::class);
+        Testimonial::observe(TestimonialObserver::class);
     }
 }

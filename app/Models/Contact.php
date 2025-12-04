@@ -12,9 +12,13 @@ class Contact extends Model
         'phone',
         'subject',
         'message',
-        'status',
-        'reply',
     ];
+
+    /**
+     * Attributes protected from mass assignment
+     * status and reply should only be set by admins
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function scopeNew($query)
     {

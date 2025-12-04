@@ -63,6 +63,9 @@
                 <li><a href="{{ route('admin.appointments.index') }}" class="{{ request()->routeIs('admin.appointments*') ? 'active' : '' }}">
                     <span class="menu-icon">📅</span> Rendez-vous
                 </a></li>
+                <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                    <span class="menu-icon">👥</span> Utilisateurs
+                </a></li>
                 <li class="menu-divider"></li>
                 <li><a href="{{ route('home') }}" target="_blank">
                     <span class="menu-icon">🌐</span> Voir le site
@@ -116,6 +119,10 @@
             <a href="{{ route('admin.appointments.index') }}" class="sidebar-link {{ request()->routeIs('admin.appointments*') ? 'active' : '' }}">
                 <span class="sidebar-icon">📅</span>
                 <span>Rendez-vous</span>
+            </a>
+            <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                <span class="sidebar-icon">👥</span>
+                <span>Utilisateurs</span>
             </a>
 
             <div class="sidebar-divider"></div>

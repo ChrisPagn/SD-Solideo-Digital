@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminAppointmentController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -47,7 +48,7 @@ Route::get('/rendez-vous', [AppointmentController::class, 'create'])->name('appo
 Route::post('/rendez-vous', [AppointmentController::class, 'store'])->name('appointments.store');
 
 // Admin Routes
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Services Management
@@ -72,6 +73,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('appointments/{appointment}/edit', [AdminAppointmentController::class, 'edit'])->name('appointments.edit');
     Route::put('appointments/{appointment}', [AdminAppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('appointments/{appointment}', [AdminAppointmentController::class, 'destroy'])->name('appointments.destroy');
+
+    // Users Management
+    Route::resource('users', AdminUserController::class);
+    Route::patch('users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
