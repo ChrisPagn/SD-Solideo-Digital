@@ -10,7 +10,7 @@
         <h1 class="hero-title">SOLIDEO DIGITAL</h1>
         <p class="hero-tagline">Solutions. Développement. Excellence.</p>
         <p class="hero-subtitle">
-            Développement Web • Montage PC sur Mesure • Formations & Assistance
+            Développement Web • Montage PC & NAS sur Mesure • Formations & Assistance
         </p>
         <div class="hero-buttons">
             <a href="{{ route('services') }}" class="btn btn-primary">Découvrir nos services</a>
