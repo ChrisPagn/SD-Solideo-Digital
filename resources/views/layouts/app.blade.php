@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
     @stack('styles')
 </head>
 <body>
@@ -15,7 +16,9 @@
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
             <a href="{{ route('home') }}" class="navbar-logo">
-                <span style="color: var(--color-gold); font-weight: 800;">SD</span>
+                <svg class="logo-svg" width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <text x="25" y="35" text-anchor="middle" class="logo-text-stroke" style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 28px; fill: none; stroke: var(--color-gold); stroke-width: 2;">SD</text>
+                </svg>
                 <span style="color: var(--color-navy);">SOLIDEO DIGITAL</span>
             </a>
 
@@ -119,6 +122,54 @@
                 navbarMenu.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
             });
+        });
+
+        // Animation automatique des titres hero sur toutes les pages
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fonction pour animer un titre lettre par lettre
+            function animateTitle(titleElement) {
+                if (!titleElement || titleElement.querySelector('span')) return; // Déjà animé
+
+                const text = titleElement.textContent;
+                titleElement.textContent = '';
+                titleElement.classList.add('animated');
+
+                // Découper le texte en lettres
+                for (let char of text) {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    titleElement.appendChild(span);
+                }
+            }
+
+            // Animer tous les titres hero (sauf page d'accueil qui a déjà les spans)
+            const heroTitles = document.querySelectorAll('.hero-title:not(.hero-title-animated)');
+            heroTitles.forEach(animateTitle);
+
+            // Animer tous les sous-titres hero
+            const heroSubtitles = document.querySelectorAll('.hero-subtitle:not(.hero-tagline-animated)');
+            heroSubtitles.forEach(subtitle => {
+                if (subtitle.closest('.hero')) {
+                    subtitle.classList.add('animated');
+                }
+            });
+        });
+
+        // Optimisation performance: retirer will-change après animations
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                // Logo SD stroke
+                const logoStroke = document.querySelector('.logo-text-stroke');
+                if (logoStroke) logoStroke.classList.add('animated');
+
+                // Tous les titres animés
+                const animatedTitles = document.querySelectorAll('.hero-title.animated, .hero-title-animated');
+                animatedTitles.forEach(title => title.classList.add('animation-complete'));
+
+                // Tous les slogans animés
+                const animatedSubtitles = document.querySelectorAll('.hero-subtitle.animated, .hero-tagline-animated');
+                animatedSubtitles.forEach(subtitle => subtitle.classList.add('animation-complete'));
+            }, 2500);
         });
     </script>
 

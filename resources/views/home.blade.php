@@ -7,8 +7,12 @@
 <!-- Hero Section -->
 <section class="hero">
     <div class="hero-container">
-        <h1 class="hero-title">SOLIDEO DIGITAL</h1>
-        <p class="hero-tagline">Solutions. Développement. Excellence.</p>
+        <h1 class="hero-title hero-title-animated" id="heroTitle">
+            <span>S</span><span>O</span><span>L</span><span>I</span><span>D</span><span>E</span><span>O</span>
+            <span>&nbsp;</span>
+            <span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span>
+        </h1>
+        <p class="hero-tagline hero-tagline-animated">Solutions. Développement. Excellence.</p>
         <p class="hero-subtitle">
             Développement Web • Montage PC & NAS sur Mesure • Formations & Assistance
         </p>

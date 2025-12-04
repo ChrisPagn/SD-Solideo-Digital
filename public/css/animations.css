@@ -1,0 +1,182 @@
+/* ====================================
+   ANIMATIONS SOLIDEO DIGITAL
+   ==================================== */
+
+/* ====================================
+   1. ANIMATION STROKE DRAW LOGO "SD"
+   ==================================== */
+
+.logo-svg {
+    display: inline-block;
+}
+
+.logo-text-stroke {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: strokeDraw 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes strokeDraw {
+    to {
+        stroke-dashoffset: 0;
+        fill: var(--color-gold);
+    }
+}
+
+/* Fill après le stroke */
+@keyframes fillLogo {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: var(--color-gold);
+    }
+}
+
+/* ====================================
+   2. ANIMATION 3D ROTATION TITRE
+   ==================================== */
+
+.hero-title-animated,
+.hero-title.animated {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-title-animated span,
+.hero-title.animated span {
+    display: inline-block;
+    opacity: 0;
+    transform: rotateY(90deg);
+    animation: rotateIn3D 0.6s ease-out forwards;
+}
+
+/* Stagger effect - chaque lettre apparaît successivement */
+.hero-title-animated span:nth-child(1), .hero-title.animated span:nth-child(1) { animation-delay: 0.1s; }
+.hero-title-animated span:nth-child(2), .hero-title.animated span:nth-child(2) { animation-delay: 0.15s; }
+.hero-title-animated span:nth-child(3), .hero-title.animated span:nth-child(3) { animation-delay: 0.2s; }
+.hero-title-animated span:nth-child(4), .hero-title.animated span:nth-child(4) { animation-delay: 0.25s; }
+.hero-title-animated span:nth-child(5), .hero-title.animated span:nth-child(5) { animation-delay: 0.3s; }
+.hero-title-animated span:nth-child(6), .hero-title.animated span:nth-child(6) { animation-delay: 0.35s; }
+.hero-title-animated span:nth-child(7), .hero-title.animated span:nth-child(7) { animation-delay: 0.4s; }
+.hero-title-animated span:nth-child(8), .hero-title.animated span:nth-child(8) { animation-delay: 0.45s; }
+.hero-title-animated span:nth-child(9), .hero-title.animated span:nth-child(9) { animation-delay: 0.5s; }
+.hero-title-animated span:nth-child(10), .hero-title.animated span:nth-child(10) { animation-delay: 0.55s; }
+.hero-title-animated span:nth-child(11), .hero-title.animated span:nth-child(11) { animation-delay: 0.6s; }
+.hero-title-animated span:nth-child(12), .hero-title.animated span:nth-child(12) { animation-delay: 0.65s; }
+.hero-title-animated span:nth-child(13), .hero-title.animated span:nth-child(13) { animation-delay: 0.7s; }
+.hero-title-animated span:nth-child(14), .hero-title.animated span:nth-child(14) { animation-delay: 0.75s; }
+.hero-title-animated span:nth-child(15), .hero-title.animated span:nth-child(15) { animation-delay: 0.8s; }
+.hero-title-animated span:nth-child(16), .hero-title.animated span:nth-child(16) { animation-delay: 0.85s; }
+.hero-title-animated span:nth-child(17), .hero-title.animated span:nth-child(17) { animation-delay: 0.9s; }
+.hero-title-animated span:nth-child(18), .hero-title.animated span:nth-child(18) { animation-delay: 0.95s; }
+.hero-title-animated span:nth-child(19), .hero-title.animated span:nth-child(19) { animation-delay: 1s; }
+.hero-title-animated span:nth-child(20), .hero-title.animated span:nth-child(20) { animation-delay: 1.05s; }
+
+@keyframes rotateIn3D {
+    0% {
+        opacity: 0;
+        transform: rotateY(90deg) translateY(20px);
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) translateY(0);
+    }
+}
+
+/* ====================================
+   3. ANIMATION FADE-IN + TRACKING SLOGAN
+   ==================================== */
+
+.hero-tagline-animated,
+.hero-subtitle.animated {
+    opacity: 0;
+    letter-spacing: -0.05em;
+    animation: fadeInTracking 1.2s ease-out forwards;
+    animation-delay: 0.8s;
+}
+
+@keyframes fadeInTracking {
+    0% {
+        opacity: 0;
+        letter-spacing: -0.05em;
+        transform: translateY(10px);
+    }
+    50% {
+        opacity: 0.5;
+        letter-spacing: 0.15em;
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 0.1em;
+        transform: translateY(0);
+    }
+}
+
+/* ====================================
+   OPTIMISATIONS RESPONSIVE
+   ==================================== */
+
+@media (max-width: 768px) {
+    .hero-title-animated {
+        font-size: 2.5rem !important;
+    }
+
+    .hero-title-animated span:nth-child(8) {
+        /* L'espace entre les mots */
+        width: 100%;
+        height: 0.5rem;
+    }
+}
+
+/* ====================================
+   PERFORMANCE OPTIMIZATIONS
+   ==================================== */
+
+/* Utilisation de will-change pour les animations GPU */
+.logo-text-stroke,
+.hero-title-animated span,
+.hero-title.animated span,
+.hero-tagline-animated,
+.hero-subtitle.animated {
+    will-change: transform, opacity;
+}
+
+/* Suppression de will-change après animation */
+.logo-text-stroke.animated,
+.hero-title-animated.animation-complete span,
+.hero-title.animation-complete span,
+.hero-tagline-animated.animation-complete,
+.hero-subtitle.animation-complete {
+    will-change: auto;
+}
+
+/* ====================================
+   FALLBACK POUR PREFERS-REDUCED-MOTION
+   ==================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-text-stroke {
+        animation: none;
+        stroke-dashoffset: 0;
+        fill: var(--color-gold);
+    }
+
+    .hero-title-animated span {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .hero-tagline-animated {
+        animation: none;
+        opacity: 1;
+        letter-spacing: 0.1em;
+    }
+}
