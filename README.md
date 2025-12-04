@@ -76,6 +76,11 @@ Palette de couleurs basée sur l'identité visuelle :
   - Système de featured
 - ✅ **Gestion Contacts** : Consultation et réponse aux messages
 - ✅ **Gestion Rendez-vous** : Modification des statuts, gestion du calendrier
+- ✅ **Gestion Utilisateurs** :
+  - CRUD complet des utilisateurs
+  - Gestion des droits administrateur
+  - Protection contre la suppression du dernier admin
+  - Sécurité : impossible de modifier ses propres droits ou se supprimer
 - ✅ **Middleware d'autorisation** : Protection par rôle admin
 
 ---
@@ -207,6 +212,14 @@ php artisan tinker
 1. Se connecter sur `/login`
 2. Accéder au dashboard sur `/admin/dashboard`
 
+### Gérer les utilisateurs
+
+Le panneau admin inclut une gestion complète des utilisateurs :
+- **Liste des utilisateurs** : `/admin/users`
+- **Créer un utilisateur** : Bouton "Nouvel utilisateur"
+- **Toggle admin** : Activer/désactiver les droits admin (impossible pour soi-même)
+- **Éditer/Supprimer** : Actions sécurisées (impossible de supprimer le dernier admin)
+
 ### Vider le cache
 
 ```bash
@@ -260,6 +273,12 @@ solideo-digital/
 ├── app/
 │   ├── Http/Controllers/
 │   │   ├── Admin/              # Contrôleurs admin
+│   │   │   ├── AdminUserController.php      # Gestion utilisateurs
+│   │   │   ├── AdminServiceController.php   # Gestion services
+│   │   │   ├── AdminProjectController.php   # Gestion projets
+│   │   │   ├── AdminBlogController.php      # Gestion blog
+│   │   │   ├── AdminTestimonialController.php # Gestion témoignages
+│   │   │   └── ...
 │   │   └── *.php               # Contrôleurs publics
 │   ├── Models/                 # Modèles Eloquent
 │   ├── Observers/              # Observers (cache invalidation)
@@ -280,6 +299,10 @@ solideo-digital/
 │       │   ├── app.blade.php   # Layout public
 │       │   └── admin.blade.php # Layout admin
 │       ├── admin/              # Vues admin
+│       │   ├── users/          # Gestion utilisateurs
+│       │   ├── services/       # Gestion services
+│       │   ├── projects/       # Gestion projets
+│       │   └── ...
 │       ├── blog/               # Vues blog
 │       ├── projects/           # Vues portfolio
 │       ├── services/           # Vues services
@@ -417,6 +440,11 @@ Site web : [www.solideo-digital.com](https://www.solideo-digital.com)
 ---
 
 ## 📝 Changelog
+
+### Version 1.1.0 (4 Décembre 2025)
+- ✅ **Gestion des utilisateurs** : CRUD complet avec gestion des droits admin
+- ✅ Protection sécurisée : impossible de modifier ses propres droits ou supprimer le dernier admin
+- ✅ Interface utilisateur intuitive avec badges et indicateurs visuels
 
 ### Version 1.0.0 (4 Décembre 2025)
 - ✅ Implémentation complète du site public
