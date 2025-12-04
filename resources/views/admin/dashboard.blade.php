@@ -37,10 +37,19 @@
                 <a href="{{ route('admin.blog.index') }}" style="color: var(--color-gold); text-decoration: none;">Gérer →</a>
             </div>
 
-            <div class="service-card" style="text-align: center;">
-                <div style="font-size: 3rem; color: var(--color-gold); margin-bottom: 1rem;">{{ $stats['testimonials'] }}</div>
+            <div class="service-card" style="text-align: center; {{ isset($stats['pending_testimonials']) && $stats['pending_testimonials'] > 0 ? 'border: 2px solid #f59e0b;' : '' }}">
+                <div style="font-size: 3rem; color: var(--color-gold); margin-bottom: 1rem;">
+                    {{ $stats['testimonials'] }}
+                    @if(isset($stats['pending_testimonials']) && $stats['pending_testimonials'] > 0)
+                    <span style="font-size: 1.2rem; color: #f59e0b;">({{ $stats['pending_testimonials'] }} ⏳)</span>
+                    @endif
+                </div>
                 <h3 style="color: var(--color-navy); margin-bottom: 0.5rem;">Témoignages</h3>
+                @if(isset($stats['pending_testimonials']) && $stats['pending_testimonials'] > 0)
+                <a href="{{ route('admin.testimonials.index', ['filter' => 'pending']) }}" style="color: #f59e0b; text-decoration: none; font-weight: 600;">⚠️ Valider maintenant →</a>
+                @else
                 <a href="{{ route('admin.testimonials.index') }}" style="color: var(--color-gold); text-decoration: none;">Gérer →</a>
+                @endif
             </div>
 
             <div class="service-card" style="text-align: center;">

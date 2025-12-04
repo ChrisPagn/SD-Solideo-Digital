@@ -8,9 +8,20 @@ use Illuminate\Http\Request;
 
 class AdminTestimonialController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $testimonials = Testimonial::latest()->paginate(15);
+        $query = Testimonial::latest();
+
+        // Apply filter
+        if ($request->has('filter')) {
+            if ($request->filter === 'pending') {
+                $query->where('is_active', false);
+            } elseif ($request->filter === 'active') {
+                $query->where('is_active', true);
+            }
+        }
+
+        $testimonials = $query->paginate(15)->appends(['filter' => $request->filter]);
         return view('admin.testimonials.index', compact('testimonials'));
     }
 

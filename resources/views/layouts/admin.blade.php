@@ -6,6 +6,19 @@
     <title>@yield('title', 'Admin - Solideo Digital')</title>
     <meta name="description" content="Administration Solideo Digital">
 
+    <!-- Favicons - Image haute résolution pour meilleure visibilité -->
+    <link rel="icon" type="image/png" sizes="196x196" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="msapplication-TileColor" content="#1e3a5f">
+    <meta name="msapplication-TileImage" content="{{ asset('favicon.png') }}">
+
     <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">

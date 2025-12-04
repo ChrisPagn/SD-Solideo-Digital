@@ -11,9 +11,34 @@
 
 <section class="section">
     <div class="section-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h2 class="section-title">Liste des témoignages</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h2 class="section-title" style="margin-bottom: 0.5rem;">Liste des témoignages</h2>
+                @php
+                    $pendingCount = \App\Models\Testimonial::where('is_active', false)->count();
+                @endphp
+                @if($pendingCount > 0)
+                <p style="color: var(--color-gray-600); font-size: 0.95rem;">
+                    <span style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.75rem; border-radius: var(--border-radius-sm); font-weight: 600;">
+                        {{ $pendingCount }} en attente de validation
+                    </span>
+                </p>
+                @endif
+            </div>
             <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary">+ Nouveau témoignage</a>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+            <a href="{{ route('admin.testimonials.index') }}" class="filter-tab {{ !request('filter') ? 'active' : '' }}" style="padding: 0.75rem 1.5rem; border-radius: var(--border-radius-md); text-decoration: none; font-weight: 600; transition: var(--transition-fast); {{ !request('filter') ? 'background: var(--color-navy); color: white;' : 'background: var(--color-gray-100); color: var(--color-gray-700);' }}">
+                Tous ({{ \App\Models\Testimonial::count() }})
+            </a>
+            <a href="{{ route('admin.testimonials.index', ['filter' => 'pending']) }}" class="filter-tab {{ request('filter') == 'pending' ? 'active' : '' }}" style="padding: 0.75rem 1.5rem; border-radius: var(--border-radius-md); text-decoration: none; font-weight: 600; transition: var(--transition-fast); {{ request('filter') == 'pending' ? 'background: #f59e0b; color: white;' : 'background: var(--color-gray-100); color: var(--color-gray-700);' }}">
+                ⏳ En attente ({{ $pendingCount }})
+            </a>
+            <a href="{{ route('admin.testimonials.index', ['filter' => 'active']) }}" class="filter-tab {{ request('filter') == 'active' ? 'active' : '' }}" style="padding: 0.75rem 1.5rem; border-radius: var(--border-radius-md); text-decoration: none; font-weight: 600; transition: var(--transition-fast); {{ request('filter') == 'active' ? 'background: #10b981; color: white;' : 'background: var(--color-gray-100); color: var(--color-gray-700);' }}">
+                ✓ Actifs ({{ \App\Models\Testimonial::where('is_active', true)->count() }})
+            </a>
         </div>
 
         @if(session('success'))

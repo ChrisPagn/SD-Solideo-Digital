@@ -19,6 +19,7 @@ class DashboardController extends Controller
             'projects' => Project::count(),
             'blog_posts' => BlogPost::count(),
             'testimonials' => Testimonial::count(),
+            'pending_testimonials' => Testimonial::where('is_active', false)->count(),
             'contacts' => Contact::count(),
             'appointments' => Appointment::count(),
             'pending_appointments' => Appointment::where('status', 'pending')->count(),

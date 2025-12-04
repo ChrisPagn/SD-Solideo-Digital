@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,11 @@ Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('proje
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// Testimonials
+Route::get('/temoignages', [TestimonialController::class, 'index'])->name('testimonials');
+Route::get('/temoignages/nouveau', [TestimonialController::class, 'create'])->name('testimonials.create');
+Route::post('/temoignages', [TestimonialController::class, 'store'])->name('testimonials.store');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

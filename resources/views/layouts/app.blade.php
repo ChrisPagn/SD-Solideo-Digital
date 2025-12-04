@@ -6,6 +6,31 @@
     <title>@yield('title', 'Solideo Digital - Solutions. Développement. Excellence.')</title>
     <meta name="description" content="@yield('description', 'Solideo Digital - Développement web, montage PC sur mesure et formations en développement')">
 
+    <!-- Favicons - Image haute résolution pour meilleure visibilité -->
+    <link rel="icon" type="image/png" sizes="196x196" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Solideo Digital">
+    <meta name="msapplication-TileColor" content="#1e3a5f">
+    <meta name="msapplication-TileImage" content="{{ asset('favicon.png') }}">
+
     <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
@@ -35,6 +60,7 @@
                 <li><a href="{{ route('services') }}" class="{{ request()->routeIs('services*') ? 'active' : '' }}">Services</a></li>
                 <li><a href="{{ route('projects') }}" class="{{ request()->routeIs('projects*') ? 'active' : '' }}">Portfolio</a></li>
                 <li><a href="{{ route('blog') }}" class="{{ request()->routeIs('blog*') ? 'active' : '' }}">Blog</a></li>
+                <li><a href="{{ route('testimonials') }}" class="{{ request()->routeIs('testimonials') ? 'active' : '' }}">Témoignages</a></li>
                 <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">À propos</a></li>
                 <li><a href="{{ route('contact') }}" class="btn btn-primary">Contact</a></li>
 
