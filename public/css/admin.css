@@ -32,6 +32,25 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Animation hover logo admin mobile */
+.admin-logo:hover {
+    transform: scale(1.05);
+}
+
+.admin-logo:hover span:first-child {
+    animation: logo-rotate-3d 0.6s ease, logo-glow 0.8s ease;
+}
+
+@keyframes logo-glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(184, 147, 94, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(184, 147, 94, 0.8), 0 0 30px rgba(184, 147, 94, 0.6);
+    }
 }
 
 .admin-menu {
@@ -114,6 +133,44 @@
     flex-direction: column;
     text-decoration: none;
     gap: 0.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Animation hover logo SD Admin */
+.sidebar-logo:hover {
+    transform: scale(1.05);
+}
+
+.sidebar-logo:hover span:first-child {
+    animation: logo-pulse-admin 0.8s ease;
+    text-shadow: 0 0 10px rgba(184, 147, 94, 0.6);
+}
+
+@keyframes logo-pulse-admin {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Animation rotation 3D au hover */
+.sidebar-logo:hover span:first-child {
+    animation: logo-rotate-3d 0.6s ease;
+}
+
+@keyframes logo-rotate-3d {
+    0% {
+        transform: perspective(400px) rotateY(0deg);
+    }
+    50% {
+        transform: perspective(400px) rotateY(180deg);
+    }
+    100% {
+        transform: perspective(400px) rotateY(360deg);
+    }
 }
 
 .sidebar-nav {
@@ -212,16 +269,22 @@
 
     .admin-navbar {
         display: block;
+        height: 70px;
+    }
+
+    .admin-navbar-container {
+        padding: var(--spacing-md);
+        height: 100%;
     }
 
     .admin-main {
         margin-left: 0;
-        padding-top: 70px;
+        padding-top: 90px;
     }
 
     .admin-menu {
         position: fixed;
-        top: 60px;
+        top: 70px;
         left: 0;
         right: 0;
         background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
@@ -230,12 +293,12 @@
         align-items: stretch;
         box-shadow: var(--shadow-lg);
         max-height: 0;
-        overflow: hidden;
+        overflow-y: auto;
         transition: max-height 0.3s ease-in-out;
     }
 
     .admin-menu.active {
-        max-height: 600px;
+        max-height: calc(100vh - 70px);
     }
 
     .admin-menu li {
@@ -244,7 +307,7 @@
 
     .admin-menu a,
     .admin-logout-btn {
-        padding: 1rem var(--spacing-md);
+        padding: 1.25rem var(--spacing-md);
         border-radius: 0;
     }
 
@@ -252,8 +315,36 @@
         display: none;
     }
 
+    /* Hamburger menu button pour admin */
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        z-index: 10001;
+    }
+
     .mobile-menu-btn span {
+        width: 25px;
+        height: 3px;
         background-color: white;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
     }
 }
 

@@ -37,6 +37,9 @@
     @stack('styles')
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
@@ -47,44 +50,136 @@
                 <span style="color: var(--color-navy);">SOLIDEO DIGITAL</span>
             </a>
 
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="navbar-actions">
+                <a href="{{ route('contact') }}" class="btn btn-primary btn-contact-mobile">Contact</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
 
-            <!-- Desktop Menu -->
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Accueil</a></li>
                 <li><a href="{{ route('services') }}" class="{{ request()->routeIs('services*') ? 'active' : '' }}">Services</a></li>
-                <li><a href="{{ route('projects') }}" class="{{ request()->routeIs('projects*') ? 'active' : '' }}">Portfolio</a></li>
-                <li><a href="{{ route('blog') }}" class="{{ request()->routeIs('blog*') ? 'active' : '' }}">Blog</a></li>
-                <li><a href="{{ route('testimonials') }}" class="{{ request()->routeIs('testimonials') ? 'active' : '' }}">Témoignages</a></li>
+
+                <!-- Dropdown Réalisations -->
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle {{ request()->routeIs('projects*') || request()->routeIs('testimonials') ? 'active' : '' }}">
+                        Réalisations
+                        <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                            <path d="M6 8L2 4h8L6 8z"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-grid">
+                            <a href="{{ route('projects') }}" class="dropdown-item">
+                                <span class="dropdown-icon-wrapper">💼</span>
+                                <div>
+                                    <strong>Portfolio</strong>
+                                    <small>Découvrez nos projets réalisés</small>
+                                </div>
+                            </a>
+                            <a href="{{ route('testimonials') }}" class="dropdown-item">
+                                <span class="dropdown-icon-wrapper">⭐</span>
+                                <div>
+                                    <strong>Témoignages</strong>
+                                    <small>Avis de nos clients</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Dropdown Ressources -->
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle {{ request()->routeIs('blog*') ? 'active' : '' }}">
+                        Ressources
+                        <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                            <path d="M6 8L2 4h8L6 8z"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-grid">
+                            <a href="{{ route('blog') }}" class="dropdown-item">
+                                <span class="dropdown-icon-wrapper">📝</span>
+                                <div>
+                                    <strong>Blog</strong>
+                                    <small>Articles et actualités tech</small>
+                                </div>
+                            </a>
+                            <a href="#" class="dropdown-item disabled">
+                                <span class="dropdown-icon-wrapper">📚</span>
+                                <div>
+                                    <strong>Guides</strong>
+                                    <small>Bientôt disponible</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
                 <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">À propos</a></li>
                 <li><a href="{{ route('contact') }}" class="btn btn-primary">Contact</a></li>
 
+                <!-- User Menu -->
                 @auth
-                    <li><a href="{{ route('admin.dashboard') }}" style="color: var(--color-gold); font-weight: 600;">Dashboard</a></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                            @csrf
-                            <button type="submit" style="background: none; border: none; color: var(--color-navy); font-weight: 500; cursor: pointer; font-family: inherit; font-size: inherit; padding: 0;">
-                                Déconnexion
-                            </button>
-                        </form>
+                    <li class="nav-dropdown user-menu">
+                        <a href="#" class="user-avatar-btn">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div class="user-avatar">
+                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                </div>
+                                <span class="user-menu-label">Mon compte</span>
+                            </div>
+                            <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M6 8L2 4h8L6 8z"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-user-info">
+                                <strong>{{ auth()->user()->name }}</strong>
+                                <small>{{ auth()->user()->email }}</small>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            @if(auth()->user()->is_admin)
+                                <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+                                    <span class="dropdown-icon-wrapper">📊</span>
+                                    <span>Dashboard</span>
+                                </a>
+                            @endif
+                            <a href="{{ route('admin.profile.edit') }}" class="dropdown-item">
+                                <span class="dropdown-icon-wrapper">👤</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item dropdown-item-logout">
+                                    <span class="dropdown-icon-wrapper">🚪</span>
+                                    <span>Déconnexion</span>
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 @else
-                    <li><a href="{{ route('login') }}" style="color: var(--color-gold); font-weight: 600;">Connexion</a></li>
+                    <li><a href="{{ route('login') }}" class="btn btn-secondary">Connexion</a></li>
                 @endauth
             </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main style="position: relative; z-index: 1;">
         @yield('content')
     </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Retour en haut">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
 
     <!-- Footer -->
     <footer class="footer">
@@ -123,6 +218,10 @@
     </footer>
 
     <script>
+        // =============================================
+        // NAVIGATION MODERNE - JAVASCRIPT
+        // =============================================
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -133,20 +232,74 @@
             }
         });
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navbarMenu = document.getElementById('navbarMenu');
-
-        mobileMenuBtn.addEventListener('click', function() {
-            navbarMenu.classList.toggle('active');
-            mobileMenuBtn.classList.toggle('active');
+        // Scroll Progress Bar
+        window.addEventListener('scroll', function() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight);
+            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
         });
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.navbar-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navbarMenu.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Menu Off-Canvas pour mobile/tablette
+        const hamburger = document.getElementById('hamburger');
+        const navbarMenu = document.getElementById('navbarMenu');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navbarMenu.classList.toggle('open');
+                document.body.style.overflow = navbarMenu.classList.contains('open') ? 'hidden' : '';
+            });
+        }
+
+        // Fermer le menu quand on clique sur l'overlay
+        if (navbarMenu) {
+            navbarMenu.addEventListener('click', function(e) {
+                if (e.target === navbarMenu && window.innerWidth <= 1024) {
+                    hamburger.classList.remove('active');
+                    navbarMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Toggle des dropdowns en mobile
+        document.querySelectorAll('.nav-dropdown .dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    const dropdown = this.closest('.nav-dropdown');
+                    dropdown.classList.toggle('open');
+                }
+            });
+        });
+
+        // Toggle du user menu en mobile
+        document.querySelectorAll('.user-menu .user-avatar-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    const userMenu = this.closest('.user-menu');
+                    userMenu.classList.toggle('open');
+                }
             });
         });
 
